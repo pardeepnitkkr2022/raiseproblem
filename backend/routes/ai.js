@@ -31,6 +31,7 @@ router.get('/generate-solution/:id', async (req, res) => {
        
     } catch (error) {
        
+        console.error('Error generating AI solution:', error.response ? error.response.data : error.message);
         res.status(500).json({ error: 'Failed to generate AI solution' });
     }
 });
