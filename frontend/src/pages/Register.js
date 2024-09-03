@@ -20,6 +20,7 @@ const Register = () => {
 
      
       localStorage.setItem('authToken', token);
+      
 
 
       navigate('/');
