@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getProblem, addComment, voteProblem, deleteProblem, deleteComment } from '../api';
+import { getProblem, addComment, voteProblem, deleteProblem, deleteComment, generateAiSolution } from '../api';
 import './ProblemDetails.css';
 
 const ProblemDetails = () => {
@@ -10,6 +10,8 @@ const ProblemDetails = () => {
     const [comment, setComment] = useState('');
     const [voteType, setVoteType] = useState(null);
     const [error, setError] = useState(null); // State to hold error messages
+    const [showModal, setShowModal] = useState(false);
+    const [aiSolution, setAiSolution] = useState('');
 
     useEffect(() => {
         const fetchProblem = async () => {
@@ -25,6 +27,18 @@ const ProblemDetails = () => {
         fetchProblem();
     }, [id]);
 
+    const handleGenerateAiSolution = async () => {
+        setShowModal(true);
+        try {
+            const response = await generateAiSolution(id);
+            console.log(response.data.solution);
+            
+             setAiSolution(response.data.solution);
+        } catch (error) {
+            console.error('Error generating AI solution:', error);
+            setAiSolution('Failed to generate AI solution.');
+        }
+    };
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -116,6 +130,20 @@ const ProblemDetails = () => {
                     <button type="submit">Add Comment</button>
                 </form>
             </div>
+
+            <button onClick={handleGenerateAiSolution}>Generate AI Solution</button>
+
+            {showModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={() => setShowModal(false)}>
+                            &times;
+                        </span>
+                        <h2>AI Solution</h2>
+                        <p>{aiSolution || 'Generating solution...'}</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

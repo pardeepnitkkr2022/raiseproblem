@@ -1,4 +1,10 @@
 /* Container for the entire problem list page */
+.inputbar{
+    padding: 15px;
+    max-width: 120px;
+    margin-top: 200px ;
+    box-sizing: border-box;
+}
 .problem-list {
     padding: 20px;
     max-width: 1200px;
@@ -6,7 +12,7 @@
     box-sizing: border-box;
 }
 
-/* Title of the problem list */
+
 .problem-list__title {
     font-size: 2rem;
     font-weight: bold;
@@ -15,7 +21,7 @@
     text-align: center;
 }
 
-/* Style for the unordered list of problems */
+
 .problem-list__items {
     list-style: none;
     padding: 0;
@@ -25,7 +31,7 @@
     gap: 20px;
 }
 
-/* Style for each problem item */
+
 .problem-list__item {
     background-color: #fff;
     border-radius: 8px;
@@ -36,27 +42,26 @@
     flex-direction: column;
 }
 
-/* Hover effect for problem item */
 .problem-list__item:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     transform: translateY(-4px);
 }
 
-/* Link styling for problem item */
+
 .problem-list__link {
     text-decoration: none;
     color: inherit;
     display: block;
 }
 
-/* Header inside each problem item */
+
 .problem-list__header {
     padding: 20px;
     display: flex;
     flex-direction: column;
 }
 
-/* Title inside problem item */
+
 .problem-list__title {
     font-size: 1.5rem;
     font-weight: bold;
@@ -64,14 +69,13 @@
     margin: 0;
 }
 
-/* Description inside problem item */
+
 .problem-list__description {
     font-size: 1rem;
     color: #666;
     margin-top: 8px;
 }
 
-/* Message when there are no problems */
 .problem-list__empty {
     text-align: center;
     color: #888;
@@ -79,7 +83,7 @@
     margin-top: 20px;
 }
 
-/* Responsive Styles */
+
 @media (max-width: 768px) {
     .problem-list__title {
         font-size: 1.5rem;

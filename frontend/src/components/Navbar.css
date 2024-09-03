@@ -1,4 +1,4 @@
-/* Navbar Styling */
+
 nav {
     display: flex;
     align-items: center;
@@ -13,7 +13,7 @@ nav {
     width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    box-sizing: border-box; /* Include padding in width calculation */
+    box-sizing: border-box; 
 }
 
 .brand {
@@ -62,7 +62,7 @@ a:hover, .logout-button:hover {
     background-color: #c82333;
 }
 
-/* Responsive Styles */
+
 @media (max-width: 768px) {
     .menu-toggle {
         display: block;
@@ -71,24 +71,35 @@ a:hover, .logout-button:hover {
     ul {
         display: flex;
         flex-direction: column;
-        position: fixed; /* Fixed position to stay within the viewport */
-        top: 50px; /* Adjust if needed */
+        position: fixed;
+        top: 50px;
         left: 0;
         right: 0;
         background-color: #333;
         width: 100%;
-        max-width: 100%; /* Ensure it does not exceed viewport width */
-        transform: translateX(100%); /* Hide menu off-screen by default */
+        max-width: 100%;
+        transform: translateX(100%);
         transition: transform 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     ul.active {
-        transform: translateX(0); /* Show menu when active */
+        transform: translateX(0);
     }
 
     li {
         margin: 10px 0;
         text-align: center;
+    }
+}
+
+
+body {
+    padding-top: 100px; 
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px; 
     }
 }

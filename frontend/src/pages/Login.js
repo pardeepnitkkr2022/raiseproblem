@@ -5,6 +5,7 @@ import './loginregister.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const [error, setError] = useState(null); // State to hold error messages
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -19,8 +20,11 @@ const Login = () => {
       navigate('/');
     } catch (error) {
       console.error('Login error:', error);
+      setError(error.response?.data?.message || 'Login failed. Please try again.');
     }
   };
+
+  const handleCloseError = () => setError(null);
 
   return (
     <div className="login">
@@ -44,6 +48,15 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
+
+      {error && (
+        <div className="error-popup">
+          <div className="error-popup-content">
+            <span className="close" onClick={handleCloseError}>&times;</span>
+            <p>{error}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

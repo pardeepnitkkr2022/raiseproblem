@@ -4,12 +4,15 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
 const problemRoutes = require('./routes/problems');
+const userprofile=require('./routes/userprofile');
+const ai=require('./routes/ai');
+const path = require('path');
 
 dotenv.config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({origin: 'http://localhost:3000'}));
 app.use(express.json());
 
 mongoose.connect("mongodb+srv://pardeepnitkkr2022:Pa%40101556@cluster0.gziurbp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0lhost/raiseproblems", {
@@ -19,9 +22,12 @@ mongoose.connect("mongodb+srv://pardeepnitkkr2022:Pa%40101556@cluster0.gziurbp.m
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 
+    app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/problems', problemRoutes);
+app.use('/api/userprofile',userprofile);
+app.use('/api/ai',ai);
 
 const PORT = process.env.PORT || 5000;
 

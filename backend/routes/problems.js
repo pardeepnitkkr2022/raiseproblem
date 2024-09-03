@@ -24,14 +24,14 @@ router.post('/', authMiddleware, async (req, res) => {
 });
 
 // Get all problems
-router.get('/', async (req, res) => {
-    try {
-        const problems = await Problem.find().populate('user', 'name');
-        res.status(200).json(problems);
-    } catch (err) {
-        res.status(500).json({ message: 'Error fetching problems' });
-    }
-});
+// router.get('/', async (req, res) => {
+//     try {
+//         const problems = await Problem.find().populate('user', 'name');
+//         res.status(200).json(problems);
+//     } catch (err) {
+//         res.status(500).json({ message: 'Error fetching problems' });
+//     }
+// });
 
 
 router.get('/:id', async (req, res) => {
@@ -119,6 +119,16 @@ router.delete('/:id', authMiddleware, async (req, res) => {
     } catch (error) {
         console.error('Error deleting problem:', error);
         res.status(500).json({ message: 'Error deleting problem', error });
+    }
+});
+router.get('/',  async (req, res) => {
+    try {
+        const { tag } = req.query;
+        const filter = tag ? { tags: { $in: tag.split(',') } } : {};
+        const problems = await Problem.find(filter);
+        res.json(problems);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch problems' });
     }
 });
 
