@@ -23,7 +23,7 @@ router.get('/generate-solution/:id', async (req, res) => {
 
         const prompt = problem.description;
 
-        const result = await model.generateContent(prompt);
+        const result = await model.generateContent("generate only 5 main points(short and breif points) about :"+prompt);
         const response = await result.response;
         const aiSolution= response.text();
         res.json({ solution: aiSolution });
