@@ -1,100 +1,112 @@
 import React, { useEffect, useState } from 'react';
-import { getProblems } from '../api'; // Update with your API call file
+import {
+  Box,
+  Typography,
+  TextField,
+  Grid,
+  InputAdornment,
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
-import './ProblemList.css'; // Ensure you have this CSS file for styling
+import { getProblems } from '../api';
+import './ProblemList.css';
 
 const ProblemList = () => {
   const [problems, setProblems] = useState([]);
-  const [searchTag, setSearchTag] = useState('');
+  const [filteredProblems, setFilteredProblems] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState('');
+
   useEffect(() => {
     const fetchProblems = async () => {
       try {
-        const { data } = await getProblems(searchTag);
+        const { data } = await getProblems();
         setProblems(data);
+        setFilteredProblems(data);
       } catch (error) {
         console.error('Error fetching problems:', error);
       }
     };
     fetchProblems();
-  }, [searchTag]);
-      const handleTagSearch = (e) => {
-        setSearchTag(e.target.value);
-    };
+  }, []);
+
+  useEffect(() => {
+    const keyword = searchKeyword.trim().toLowerCase();
+    if (!keyword) {
+      setFilteredProblems(problems);
+      return;
+    }
+
+    const filtered = problems.filter((problem) => {
+      const descriptionMatch = problem.description.toLowerCase().includes(keyword);
+      const tagMatch = problem.tags.some((tag) => tag.toLowerCase().includes(keyword));
+      return descriptionMatch || tagMatch;
+    });
+
+    setFilteredProblems(filtered);
+  }, [searchKeyword, problems]);
 
   return (
-    <div className="problem-list">
-      <h1 className="problem-list__title">Problem List</h1>
-     <div className="inputbar">
-      <input
-                type="text"
-                placeholder="Search by tag"
-                value={searchTag}
-                onChange={handleTagSearch}
-            />
-            </div> 
-      <ul className="problem-list__items">
-        {problems.length > 0 ? (
-          problems.map((problem) => (
-            <li key={problem._id} className="problem-list__item">
-              <Link to={`/problems/${problem._id}`} className="problem-list__link">
-                <div className="problem-list__header">
-                  <h2 className="problem-list__title">{problem.title}</h2>
-                  <p className="problem-list__description">{problem.description}</p>
+    <Box className="problem-list-wrapper">
+      <Box className="problem-header-box">
+  <Typography className="problem-list-heading">
+    ✨ Curated Community Problems
+  </Typography>
+  <Typography className="problem-subtitle">
+    Discover, solve, and grow with real-world coding issues shared by peers.
+  </Typography>
+</Box>
+
+      <Box className="search-box">
+        <TextField
+          fullWidth
+          placeholder="Search by tags, keywords, or description..."
+          variant="outlined"
+          value={searchKeyword}
+          onChange={(e) => setSearchKeyword(e.target.value)}
+          className="search-input"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon style={{ color: '#9aa0a6' }} />
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Box>
+
+      {filteredProblems.length > 0 ? (
+        <Grid container spacing={4} className="problem-grid">
+          {filteredProblems.map((problem) => (
+            <Grid item key={problem._id} xs={12} sm={6} md={4} lg={3}>
+              <Link to={`/problems/${problem._id}`} className="problem-card-link">
+                <div className="modern-problem-card">
+                  <div className="problem-card-top">
+                    <h3 className="problem-title-text">{problem.title}</h3>
+                    <p className="problem-desc-text">{problem.description}</p>
+                  </div>
+                  <div className="problem-card-meta">
+                    <div className="problem-tags">
+                      {problem.tags?.slice(0, 3).map((tag, i) => (
+                        <span key={i} className="problem-tag">#{tag}</span>
+                      ))}
+                    </div>
+                    <div className="problem-votes">
+                      <span>⬆ {problem.upvotes}</span>
+                      <span>⬇ {problem.downvotes}</span>
+                    </div>
+                  </div>
                 </div>
               </Link>
-            </li>
-          ))
-        ) : (
-          <p className="problem-list__empty">No problems available</p>
-        )}
-      </ul>
-    </div>
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <Typography className="no-problems-text" align="center">
+          😞 No problems match your search.
+        </Typography>
+      )}
+    </Box>
   );
 };
 
 export default ProblemList;
-
-// import React, { useEffect, useState } from 'react';
-// import { getProblems } from '../api';
-// import './ProblemList.css';
-
-// const ProblemList = () => {
-//     const [problems, setProblems] = useState([]);
-//     const [searchTag, setSearchTag] = useState('');
-
-//     useEffect(() => {
-//         const fetchProblems = async () => {
-//             const response = await getProblems(searchTag);
-//             setProblems(response.data);
-//         };
-//         fetchProblems();
-//     }, [searchTag]);
-
-//     const handleTagSearch = (e) => {
-//         setSearchTag(e.target.value);
-//     };
-
-//     return (
-//         <div className="problem-list">
-//             <h2>Problem List</h2>
-//             <input
-//                 type="text"
-//                 placeholder="Search by tag"
-//                 value={searchTag}
-//                 onChange={handleTagSearch}
-//             />
-//             <ul className="problem-list__items">
-//                 {problems.map((problem) => (
-//                     <li key={problem._id} className="problem-list__item">
-//                         <h3>{problem.title}</h3>
-//                         <p>{problem.description}</p>
-//                         <p><strong>Tags:</strong> {problem.tags.join(', ')}</p>
-//                     </li>
-//                 ))}
-//             </ul>
-//         </div>
-//     );
-// };
-
-// export default ProblemList;
-

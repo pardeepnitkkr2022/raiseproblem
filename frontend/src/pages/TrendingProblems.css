@@ -1,22 +1,22 @@
-/* ProblemList.css */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;800&display=swap');
 
-.problem-list-wrapper {
+.trending-container {
   padding: 3rem 2rem;
   background: linear-gradient(145deg, #f0f4ff, #ffffff);
   min-height: 100vh;
   font-family: 'Inter', sans-serif;
 }
 
-/* Header Section */
-.problem-header-box {
+
+.trending-header-box {
   text-align: center;
   margin-bottom: 2.5rem;
   padding: 1rem;
 }
 
-.problem-list-heading {
+.trending-title {
   font-family: 'Poppins', sans-serif !important;
   font-weight: 800 !important;
   font-size: 2.6rem !important;
@@ -25,13 +25,11 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-align: center;
-  margin-bottom: 2rem;
   display: inline-block;
+  margin-bottom: 1rem;
   animation: fadeInUp 0.8s ease;
 }
-
-
-.problem-list-heading::after {
+.trending-title::after {
   content: '';
   display: block;
   width: 60%;
@@ -42,7 +40,7 @@
   animation: underlineGrow 1s ease forwards;
 }
 
-.problem-subtitle {
+.trending-subtitle {
   font-size: 1.1rem;
   color: #555;
   font-weight: 500;
@@ -51,63 +49,48 @@
   animation: fadeInUp 1s ease;
 }
 
-/* Search Bar */
-.search-box {
-  max-width: 600px;
-  margin: 0 auto 2rem auto;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 14px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(10px);
-  padding: 0.5rem 1rem;
-}
-
-.search-input input {
-  font-size: 1rem;
-  padding: 1rem;
-  border-radius: 10px;
-  font-family: 'Inter', sans-serif;
-}
-
-/* Grid for Cards */
-.problem-grid {
+/* Grid */
+.trending-grid {
   margin-top: 1rem;
 }
 
-/* Link Wrapper */
-.problem-card-link {
+.trending-link {
   text-decoration: none;
 }
 
-/* Problem Cards */
-.modern-problem-card {
+/* Cards */
+.trending-card {
   background: rgba(255, 255, 255, 0.92);
   border-radius: 16px;
-  padding: 1.5rem;
   height: 100%;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid rgba(200, 200, 200, 0.2);
 }
 
-.modern-problem-card:hover {
+.trending-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
 }
 
-/* Problem Card Text */
-.problem-title-text {
-  font-size: 1.3rem;
-  color: #1e1e1e;
-  margin: 0 0 0.5rem 0;
+.trending-card-content {
+  padding: 1.5rem;
+}
+
+/* Card Text */
+.problem-title {
+  font-size: 1.25rem;
   font-weight: 700;
+  color: #1e1e1e;
   font-family: 'Poppins', sans-serif;
+  margin-bottom: 0.4rem;
 }
 
-.problem-desc-text {
+.problem-description {
   font-size: 0.95rem;
   color: #444;
   margin-bottom: 1rem;
@@ -116,37 +99,34 @@
   text-overflow: ellipsis;
 }
 
-/* Tags and Votes */
-.problem-card-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.problem-tags {
+/* Tags */
+.tag-box {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
-.problem-tag {
-  background-color: #dfe6e9;
-  color: #2d3436;
+.tag-chip {
   font-size: 0.75rem;
-  padding: 4px 10px;
-  border-radius: 20px;
   font-weight: 500;
-  font-family: 'Inter', sans-serif;
+  background-color: #e0e0e0;
+  color: #2d3436;
+  border-radius: 16px;
 }
 
-.problem-votes span {
+/* Vote Bar */
+.vote-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 0.8rem 1.5rem;
   font-size: 0.9rem;
   color: #636e72;
-  margin-left: 0.75rem;
 }
 
-/* Empty State */
-.no-problems-text {
+/* Empty state */
+.no-problems {
   margin-top: 2rem;
   font-size: 1.1rem;
   color: #999;

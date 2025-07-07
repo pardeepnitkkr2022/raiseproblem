@@ -1,6 +1,8 @@
+/* login.css */
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;800&display=swap');
 
-.create-wrapper {
+.login-wrapper {
   padding: 3rem 1rem;
   background: linear-gradient(145deg, #f0f4ff, #ffffff);
   min-height: 100vh;
@@ -10,28 +12,24 @@
   font-family: 'Inter', sans-serif;
 }
 
-.create-card {
+.login-card {
   border-radius: 20px;
-  padding: 2rem 2.5rem;
+  padding: 2.5rem 2rem;
   background: rgba(255, 255, 255, 0.85);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(200, 200, 200, 0.2);
 }
 
-.create-title {
+.login-title {
   font-family: 'Poppins', sans-serif;
-  font-size: 2.4rem;
+  font-size: 2rem;
   font-weight: 800;
   background: linear-gradient(90deg, #7f00ff, #e100ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 2rem;
   text-align: center;
-}
-
-.create-form {
-  margin-top: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .input-field .MuiInputBase-root {
@@ -49,44 +47,46 @@
   color: #555;
 }
 
-.upload-btn {
-  margin-top: 1rem;
-  border: 2px dashed #7f00ff;
-  color: #7f00ff;
-  font-weight: 600;
-  text-transform: none;
-  font-family: 'Inter', sans-serif;
-  padding: 10px 18px;
-  border-radius: 12px;
-  transition: all 0.3s ease-in-out;
-}
-
-.upload-btn:hover {
-  background: rgba(127, 0, 255, 0.05);
-  border-color: #7f00ff;
-}
-
-.image-name {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  color: #666;
-  font-style: italic;
-}
-
-.submit-btn {
-  margin-top: 2rem;
+/* Login Button */
+.login-btn {
+  margin-top: 1.5rem;
   background: linear-gradient(90deg, #7f00ff, #e100ff);
   color: white;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
-  font-size: 1.05rem;
+  font-size: 1rem;
   padding: 12px;
   border-radius: 14px;
   text-transform: none;
-  box-shadow: 0 6px 16px rgba(127, 0, 255, 0.25);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
   transition: background 0.3s ease-in-out;
 }
 
-.submit-btn:hover {
-  background: linear-gradient(90deg, #6a00cc, #d100cc);
+.login-btn:hover {
+  background: linear-gradient(90deg, #7f00ff, #e100ff);
+}
+
+/* Google Button */
+.google-login-btn {
+  border: 2px solid #ccc;
+  border-radius: 14px;
+  padding: 10px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  text-transform: none;
+  color: #333;
+  background-color: #f9f9f9;
+  transition: background 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.google-login-btn:hover {
+  background-color: #f1f1f1;
+  border-color: #888;
+}
+
+/* Alert Message */
+.login-alert {
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  border-radius: 10px;
 }

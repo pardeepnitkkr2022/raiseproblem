@@ -7,12 +7,19 @@ const problemRoutes = require('./routes/problems');
 const userprofile=require('./routes/userprofile');
 const ai=require('./routes/ai');
 const path = require('path');
-
+const fileUpload = require('express-fileupload');
+const passport = require('passport');
+require('./middleware/passport');
 dotenv.config();
 
 const app = express();
 
-app.use(cors({origin: 'https://raiseproblem-2.onrender.com'}));
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://raiseproblem-2.onrender.com'],
+  credentials: true
+}));
+
+app.use(fileUpload({ useTempFiles: true }));
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI, {
@@ -24,6 +31,8 @@ mongoose.connect(process.env.MONGO_URI, {
 
     app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Routes
+
+app.use(passport.initialize());
 app.use('/api/auth', authRoutes);
 app.use('/api/problems', problemRoutes);
 app.use('/api/userprofile',userprofile);

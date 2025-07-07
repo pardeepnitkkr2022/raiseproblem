@@ -1,211 +1,114 @@
-/* Problem Details Container */
-.problem-details {
-    background: #f9f9f9;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 900px;
-    margin: 20px auto;
-    font-family: 'Arial', sans-serif;
-    color: #333;
+.details-container {
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f8faff, #eef2ff);
+  min-height: 100vh;
 }
 
-/* Title */
-.problem-details h2 {
-    font-size: 2.2rem;
-    color: #111;
-    margin-bottom: 15px;
-    font-weight: 700;
-    border-bottom: 2px solid #007BFF;
-    padding-bottom: 10px;
+.details-card {
+  background: #ffffffd6;
+  backdrop-filter: blur(6px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
 }
 
-/* Description */
-.problem-details p {
-    font-size: 1.1rem;
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 20px;
+.problem-title {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
 }
 
-/* Tags */
-.problem-details .tags {
-    font-size: 1rem;
-    color: #007BFF;
-    margin-bottom: 20px;
-    font-weight: 500;
+.problem-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
 }
 
-/* User Info */
-.problem-details .user {
-    font-size: 0.95rem;
-    color: #777;
-    margin-bottom: 20px;
+.problem-description {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  color: #374151;
 }
 
-/* Votes */
-.problem-details .votes {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
+.tag-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-.problem-details .votes button {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    display: flex;
-    align-items: center;
+.tag-chip {
+  background-color: #e0f2fe;
+  color: #0284c7;
+  font-weight: 500;
 }
 
-.problem-details .votes button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
+.posted-by {
+  color: #6b7280;
+  font-size: 0.9rem;
 }
 
-.problem-details .delete-button {
-    background-color: #e74c3c;
+.action-btns {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
 }
 
-.problem-details .delete-button:hover {
-    background-color: #c0392b;
+.vote-btn {
+  border-radius: 12px;
+  text-transform: none;
+  font-weight: 600;
 }
 
-/* Comments Section */
-.problem-details .comments {
-    display: flex;
-    flex-direction: column; /* Change direction to column */
-    margin-top: 20px;
+.upvote {
+  background-color: #4ade80 !important;
+  color: #065f46;
 }
 
-/* Comments Header */
-.problem-details .comments h3 {
-    font-size: 1.6rem;
-    color: #333;
-    margin-bottom: 15px;
-    font-weight: 600;
+.downvote {
+  background-color: #fca5a5 !important;
+  color: #7f1d1d;
 }
 
-/* Comments List */
-.problem-details .comments ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column; /* Ensure list items stack vertically */
+.delete-problem {
+  border-color: #f87171;
+  color: #b91c1c;
 }
 
-.problem-details .comments li {
-    background: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-    font-size: 1rem;
-    color: #444;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+.comments-section {
+  margin-top: 3rem;
 }
 
-/* Comment Author */
-.problem-details .comments li .author {
-    font-weight: 600;
-    color: #007BFF;
-    margin-bottom: 5px;
-    display: block;
+.comment-list {
+  margin-top: 1rem;
+  background: #f9fafb;
+  border-radius: 12px;
 }
 
-/* Comment Text */
-.problem-details .comments li .text {
-    line-height: 1.5;
+.comment-item {
+  padding: 0.5rem 1rem;
 }
 
-/* Error Message */
-.problem-details .comments .error-message {
-    color: #e74c3c;
-    font-size: 1rem;
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #e74c3c;
-    border-radius: 5px;
-    background-color: #fdd;
+.comment-form {
+  margin-top: 2rem;
 }
 
-/* Comment Form */
-.problem-details .comments form {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column; /* Ensure form elements stack vertically */
+.submit-comment {
+  margin-top: 1rem;
+  background-color: #6366f1;
+  text-transform: none;
+  font-weight: 600;
 }
 
-.problem-details .comments input,
-.problem-details .comments button {
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    margin-top: 10px;
-    padding: 12px;
-    width: 100%;
+.ai-btn {
+  background-color: #3b82f6;
+  color: white;
+  text-transform: none;
+  border-radius: 10px;
+  font-weight: 600;
 }
-
-.problem-details .comments input {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-}
-
-.problem-details .comments button {
-    background-color: #007BFF;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.problem-details .comments button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.modal-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 80%;
-    max-height: 80%;
-    overflow-y: auto; /* Enable vertical scrolling */
-    position: relative;
-}
-
-.modal-content .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.modal-content h2 {
-    margin-top: 0;
-}
-
-.modal-content p {
-    margin-bottom: 0;
-}
-

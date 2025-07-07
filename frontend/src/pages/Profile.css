@@ -1,97 +1,127 @@
-.profile {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+body {
+  background: linear-gradient(135deg, #f8faff, #eef2ff);
+  background-attachment: fixed;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
-.profile h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 2rem;
-    color: #333;
+.profile-wrapper {
+  font-family: 'Inter', sans-serif;
+  max-width: 1280px;
+  margin: auto;
+  padding: 40px 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.profile-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(#c7d2fe 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+
+.profile-card {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  margin-bottom: 40px;
+  transition: all 0.25s ease;
+}
+
+.profile-card:hover {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  background-color: #f8faff;
 }
 
 .profile-details {
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.profile-problems {
-    margin-bottom: 20px;
+.profile-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
 }
 
-.problem-list__items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.profile-email {
+  font-size: 14px;
+  color: #475569;
 }
 
-.problem-list__item {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
+.upload-button {
+  margin-top: 8px;
+  width: fit-content;
 }
 
-.problem-list__item:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    transform: translateY(-4px);
+/* Problem Card Styling (same as ProblemList) */
+.problem-card-link {
+  text-decoration: none;
 }
 
-
-.problem-list__link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
+.modern-problem-card {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 18px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
-
-.problem-list__header {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
+.modern-problem-card:hover {
+  border: 1px solid #6366f1;
+  background-color: #f8faff;
+  box-shadow:
+    0 4px 10px rgba(99, 102, 241, 0.2),
+    0 0 0 3px rgba(99, 102, 241, 0.1);
+  transform: translateY(-4px);
+  z-index: 1;
 }
 
-
-.problem-list__title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    margin: 0;
+.problem-title-text {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.problem-list__description {
-    font-size: 1rem;
-    color: #666;
-    margin-top: 8px;
+.problem-desc-text {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.6;
+  height: 60px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
-.profile-info {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.profile-picture {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ccc;
-}
-
-input[type="file"] {
-    margin-top: 10px;
+.section-heading {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #111827;
 }

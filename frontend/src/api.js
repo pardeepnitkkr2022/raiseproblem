@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'https://raiseproblem-1.onrender.com/api' });
+const API = axios.create({ baseURL: 'http://localhost:5000/api' });
+
 
 API.interceptors.request.use((req) => {
     if (localStorage.getItem('authToken')) {
@@ -20,7 +21,14 @@ export const voteProblem = (id, type) => API.post(`/problems/${id}/vote`, { type
 export const deleteProblem = (id) => API.delete(`/problems/${id}`);
 export const getProfile =()=> API.get('/userprofile/profile');
 export const updateProfilePicture=(formData)=>API.post('userprofile/picture',formData);
+export const deleteComment = (id, commentId) => API.delete(`/problems/${id}/comments/${commentId}`);
+export const getTrendingProblems = () => API.get('/problems/trending');
+export const verifyEmail = (data) => API.post('/auth/verify-email', data);
+export const forgotPassword = (data) => API.post('/auth/forgot-password', data);
+export const resetPassword = (data) => API.post('/auth/reset-password', data);
 
+export const loginWithGoogle = (userData) =>
+  API.post('/auth/google-login', userData).then((res) => res.data);
 export const getProblems =  (tag) => {
     const query = tag ? `?tag=${tag}` : '';
     return API.get(`/problems${query}`);
