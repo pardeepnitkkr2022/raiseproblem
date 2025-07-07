@@ -46,7 +46,7 @@ const Login = () => {
 
   const handleGoogleLogin = () => {
     if (!loading) {
-      window.location.href = 'http://localhost:5000/api/auth/google'; // Update if deployed
+      window.location.href = 'https://raiseproblem-1.onrender.com/api/auth/google'; // Update if deployed
     }
   };
 
