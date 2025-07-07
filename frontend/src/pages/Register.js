@@ -50,7 +50,7 @@ const Register = () => {
 
   const handleGoogleLogin = () => {
     if (!loading) {
-      window.location.href = 'http://localhost:5000/api/auth/google';
+      window.location.href = 'https://raiseproblem-1.onrender.com/api/auth/google';
     }
   };
 
