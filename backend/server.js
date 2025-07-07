@@ -15,7 +15,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://raiseproblem-2.onrender.com'],
+  origin: ['https://raiseproblem.vercel.app', 'https://raiseproblem-2.onrender.com'],
   credentials: true
 }));
 
