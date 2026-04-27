@@ -52,7 +52,7 @@ const model = genAI.getGenerativeModel({
 
 
 
-router.get('/best-comment-solution/:id', async (req, res) => {
+router.get('/generate-solution/:id', async (req, res) => {
     const problemId = req.params.id;
 
     try {
