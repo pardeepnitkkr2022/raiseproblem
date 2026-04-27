@@ -50,42 +50,36 @@ const model = genAI.getGenerativeModel({
     model: "gemini-pro"
 });
 
-
-
 router.get('/generate-solution/:id', async (req, res) => {
     const problemId = req.params.id;
 
     try {
-       
         const problem = await Problem.findById(problemId)
-            .populate('comments.user', 'name');
+            .populate("comments.user", "name");
 
         if (!problem) {
             return res.status(404).json({
-                error: 'Problem not found'
+                error: "Problem not found"
             });
         }
 
-        
         if (!problem.comments || problem.comments.length === 0) {
             return res.status(404).json({
-                error: 'No comments found for this problem'
+                error: "No comments found for this problem"
             });
         }
 
-        
         let commentsText = "";
 
         problem.comments.forEach((comment, index) => {
             commentsText += `
 Comment ${index + 1}:
 User: ${comment.user?.name || "Anonymous"}
-Text: ${comment.comment}
--------------------------
+Text: ${comment.comment || ""}
+-------------------
 `;
         });
 
-        // AI Prompt
         const prompt = `
 Problem Title:
 ${problem.title}
@@ -93,18 +87,17 @@ ${problem.title}
 Problem Description:
 ${problem.description}
 
-Below are user comments suggesting solutions:
+Below are comments from users suggesting solutions:
 
 ${commentsText}
 
-Your task:
-1. Compare all comments carefully
-2. Select the BEST comment that gives the most useful solution
-3. Return only:
-   - Best Comment
-   - Why it is best (short explanation)
+Select the BEST comment that provides the most useful solution.
 
-Keep answer short and clear.
+Return only:
+1. Best Comment
+2. Why it is best (short explanation)
+
+Keep it short and clear.
 `;
 
         const result = await model.generateContent(prompt);
@@ -112,19 +105,15 @@ Keep answer short and clear.
         const bestSolution = response.text();
 
         res.json({
-            bestSolution
+            solution: bestSolution
         });
 
     } catch (error) {
-        console.error(
-            "Error finding best solution among comments:",
-            error.response ? error.response.data : error.message
-        );
+        console.error("FULL ERROR:", error);
 
         res.status(500).json({
-            error: "Failed to find best solution from comments"
+            error: error.message || "Failed to find best solution from comments"
         });
     }
 });
-
 module.exports = router;
