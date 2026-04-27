@@ -117,7 +117,7 @@ Keep answer short and clear.
 
     } catch (error) {
         console.error(
-            "Error finding best comment solution:",
+            "Error finding best solution among comments:",
             error.response ? error.response.data : error.message
         );
 
