@@ -7,7 +7,7 @@ import {
   Typography,
   Container,
   Alert,
-  Box,
+  
 } from '@mui/material';
 
 const ForgotPassword = () => {
