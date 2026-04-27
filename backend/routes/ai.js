@@ -43,17 +43,18 @@ const router = express.Router();
 const Problem = require('../models/Problem');
 require('dotenv').config();
 
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { GoogleGenAI } = require("@google/genai");
 
-const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash-latest"
+// New Gemini SDK setup
+const ai = new GoogleGenAI({
+    apiKey: process.env.API_KEY
 });
 
 router.get('/generate-solution/:id', async (req, res) => {
     const problemId = req.params.id;
 
     try {
+        // Fetch problem and populate comment users
         const problem = await Problem.findById(problemId)
             .populate("comments.user", "name");
 
@@ -69,6 +70,7 @@ router.get('/generate-solution/:id', async (req, res) => {
             });
         }
 
+        // Convert comments into text for AI
         let commentsText = "";
 
         problem.comments.forEach((comment, index) => {
@@ -80,6 +82,7 @@ Text: ${comment.comment || ""}
 `;
         });
 
+        // Prompt for Gemini
         const prompt = `
 Problem Title:
 ${problem.title}
@@ -91,18 +94,23 @@ Below are comments from users suggesting solutions:
 
 ${commentsText}
 
-Select the BEST comment that provides the most useful solution.
+Your task:
+1. Compare all comments carefully
+2. Select the BEST comment that gives the most useful solution
+3. Return only:
+   - Best Comment
+   - Why it is best (short explanation)
 
-Return only:
-1. Best Comment
-2. Why it is best (short explanation)
-
-Keep it short and clear.
+Keep the answer short, clear, and useful.
 `;
 
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const bestSolution = response.text();
+        // New Gemini API call
+        const result = await ai.models.generateContent({
+            model: "gemini-2.0-flash",
+            contents: prompt
+        });
+
+        const bestSolution = result.text;
 
         res.json({
             solution: bestSolution
@@ -116,4 +124,5 @@ Keep it short and clear.
         });
     }
 });
+
 module.exports = router;
