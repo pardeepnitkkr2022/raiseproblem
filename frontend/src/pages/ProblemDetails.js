@@ -92,15 +92,26 @@ const ProblemDetails = () => {
     }
   };
 
-  const handleGenerateAiSolution = async () => {
-    setShowModal(true);
-    try {
-      const response = await generateAiSolution(id);
-      setAiSolution(response.data.solution);
-    } catch {
-      setAiSolution('Failed to generate AI solution.');
-    }
-  };
+const handleGenerateAiSolution = async () => {
+  setShowModal(true);
+
+  try {
+    const response = await generateAiSolution(id);
+
+    // Backend returns: { solution: bestSolution }
+    setAiSolution(response.data.solution);
+
+  } catch (error) {
+    console.log("Frontend Error:", error);
+
+    const backendError =
+      error?.response?.data?.error ||
+      error?.response?.data?.message ||
+      "Failed to generate AI solution.";
+
+    setAiSolution(backendError);
+  }
+};
 
   const handleDeleteComment = async (commentId) => {
     try {
