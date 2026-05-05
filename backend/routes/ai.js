@@ -43,18 +43,18 @@ const router = express.Router();
 const Problem = require('../models/Problem');
 require('dotenv').config();
 
-const { GoogleGenAI } = require("@google/genai");
+const Groq = require("groq-sdk");
 
-// New Gemini SDK setup
-const ai = new GoogleGenAI({
-    apiKey: process.env.API_KEY
+// Groq setup
+const groq = new Groq({
+    apiKey: process.env.GROQ_API_KEY
 });
 
 router.get('/generate-solution/:id', async (req, res) => {
     const problemId = req.params.id;
 
     try {
-        // Fetch problem and populate comment users
+    
         const problem = await Problem.findById(problemId)
             .populate("comments.user", "name");
 
@@ -70,19 +70,17 @@ router.get('/generate-solution/:id', async (req, res) => {
             });
         }
 
-        // Convert comments into text for AI
-        let commentsText = "";
-
-        problem.comments.forEach((comment, index) => {
-            commentsText += `
+  
+        const commentsText = problem.comments
+            .slice(0, 5)
+            .map((comment, index) => `
 Comment ${index + 1}:
 User: ${comment.user?.name || "Anonymous"}
 Text: ${comment.comment || ""}
 -------------------
-`;
-        });
+`).join("\n");
 
-        // Prompt for Gemini
+        // Prompt
         const prompt = `
 Problem Title:
 ${problem.title}
@@ -96,21 +94,28 @@ ${commentsText}
 
 Your task:
 1. Compare all comments carefully
-2. Select the BEST comment that gives the most useful solution
-3. Return only:
-   - Best Comment
-   - Why it is best (short explanation)
+2. Select the BEST comment
+3. Return ONLY:
+   Best Comment:
+   Reason:
 
-Keep the answer short, clear, and useful.
+Keep it short.
 `;
 
-        // New Gemini API call
-        const result = await ai.models.generateContent({
-            model: "gemini-2.0-flash",
-            contents: prompt
+        // 🔥 GROQ API CALL
+        const response = await groq.chat.completions.create({
+            model: "llama3-8b-8192",
+            messages: [
+                {
+                    role: "user",
+                    content: prompt
+                }
+            ],
+            temperature: 0.5,
+            max_tokens: 300
         });
 
-        const bestSolution = result.text;
+        const bestSolution = response.choices[0]?.message?.content || "No solution generated";
 
         res.json({
             solution: bestSolution
@@ -120,7 +125,7 @@ Keep the answer short, clear, and useful.
         console.error("FULL ERROR:", error);
 
         res.status(500).json({
-            error: error.message || "Failed to find best solution from comments"
+            error: error.message || "Failed to generate solution"
         });
     }
 });
